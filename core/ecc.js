@@ -469,6 +469,16 @@ sjcl.ecc.basicKey.generateKeys = function(cn) {
   };
 };
 
+/** @private */
+sjcl.ecc.basicKey.setKeys = function(cn) {
+  return function setKeys(sec) {
+    var pub = curve.G.mult(sec);
+    return { pub: new sjcl.ecc[cn].publicKey(curve, pub),
+             sec: new sjcl.ecc[cn].secretKey(curve, sec) };
+  };
+};
+
+
 /** elGamal keys */
 sjcl.ecc.elGamal = {
   /** generate keys
